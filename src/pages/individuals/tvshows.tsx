@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
-import { Grid, Header, Image, List, Loader, Segment } from "semantic-ui-react";
+import { Accordion, Card, Grid, Header, Image, Label, List, Loader, Segment } from "semantic-ui-react";
 import { fetchTVDetails } from "./tv_query";
 
 export const TvShow = () =>{
@@ -18,12 +18,20 @@ export const TvShow = () =>{
         return <Loader active />
     }
 
+    const seasonPanels = data.seasons.map((season: any) =>({
+        key: season.id,
+        title: `Season ${season.season_number}`,
+        content: {
+            content: <Card style={{height: "70px"}} meta={season.air_date} description={`${season.episode_count} episodes`}/>
+        }
+    }))
+
 
     return(
         <div style={{marginTop:50}}>
             <Segment>
                 <Header>
-                    {data.title}
+                    {data.name}
                 </Header>
                 <Grid columns={2} divided textAlign="left" style={{marginTop:20}}>
                     <Grid.Row>
@@ -46,22 +54,41 @@ export const TvShow = () =>{
                             <List>
                                 <List.Item>
                                     <List.Header>
-                                        Contains Adult content?
+                                        Created By:
                                     </List.Header>
-                                    {data.adult ? "Yes" : "No"}
+                                    <List.Description>
+                                        {data.created_by.map((creator: any) => creator.name).join(", ")}
+                                    </List.Description>
                                 </List.Item>
                                 <List.Item>
                                     <List.Header>
-                                        Budget:
+                                        Episodes Run Time:
                                     </List.Header>
-                                    {data.budget}
+                                    {data.episode_run_time.join(", ")}
                                 </List.Item>
                                 <List.Item>
                                     <List.Header>
                                         Genres:
                                     </List.Header>
                                     {data.genres.map((genre:any) => (
-                                        <List.Item key={genre.id}> {genre.name} </List.Item>
+                                        <Label key={genre.id}> {genre.name} </Label>
+                                    ))}
+                                </List.Item>
+                                <List.Item>
+                                    <List.Header>
+                                        First Aired Date:
+                                    </List.Header>
+                                    {data.first_air_date}
+                                </List.Item>
+                                <List.Item>
+                                    <List.Header> Networks:</List.Header>
+                                    {data.networks.map ((network: any) =>(
+                                        <Image
+                                            key={network.id}
+                                            src={`https://image.tmdb.org/t/p/original/${network.logo_path}`}
+                                            size="small"
+                                            style={{marginRight: 10}}
+                                        />
                                     ))}
                                 </List.Item>
                                 <List.Item>
@@ -72,21 +99,28 @@ export const TvShow = () =>{
                                 </List.Item>
                                 <List.Item>
                                     <List.Header>
-                                        Release Date:
+                                        Number of Episodes:
                                     </List.Header>
-                                    {data.release_date}
+                                    {data.number_of_episodes}
                                 </List.Item>
                                 <List.Item>
                                     <List.Header>
-                                        Runtime:
+                                        Number of Seasons:
                                     </List.Header>
-                                    {data.runtime}
+                                    {data.number_pf_seasons}
+                                </List.Item>
+                                <List.Item>
+                                    <List.Header> Seasons:</List.Header>
+                                        <List.Description style={{height:"200px", overflowY: "scroll"}}>
+                                            <Accordion defaultActiveIndex={0} panels={seasonPanels} styled />
+                                        </List.Description>
+                                    
                                 </List.Item>
                                 <List.Item>
                                     <List.Header>
-                                        Revenue:
+                                        Vote Average:
                                     </List.Header>
-                                    {data.revenue}
+                                    {data.vote_average}
                                 </List.Item>
                             </List>
                         </Grid.Column>

@@ -6,6 +6,7 @@ import './App.css';
 import { Home } from './pages/home/home';
 import { Movie } from './pages/individuals/movies';
 import { TvShow } from './pages/individuals/tvshows';
+import { Rated } from './pages/rated/rated_page';
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Home/>} />
           <Route path='/auth' element={<Auth/>} />
-          <Route path='/rated' element={<h1>Rated Pages</h1>} />
+          <Route path='/rated' element={<Rated/>} />
           <Route path='/movie/:id' element={ <Movie/>} />
           <Route path='/tvshow/:id' element={ <TvShow/> } />
         </Routes>

@@ -28,7 +28,7 @@ export const rateTvShow = async (tvShowId: number, rating:number) => {
                 accept: "application/json",
                 "content-type": "application/json;charset=utf-8",
             },
-            body: `{"value:" ${rating}}`,
+            body: `{"value": ${rating}}`,
         }
     );
 

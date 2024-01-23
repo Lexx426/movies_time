@@ -1,4 +1,4 @@
-import { Card, Form, FormField, FormInput, Grid, Label } from "semantic-ui-react";
+import { Card, Form, Grid, Label } from "semantic-ui-react";
 import { DisplayType } from "./home";
 import { Link } from "react-router-dom";
 import { useState } from "react";

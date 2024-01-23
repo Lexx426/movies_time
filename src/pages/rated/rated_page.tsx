@@ -2,7 +2,6 @@ import { Container, Header, Loader, Menu, Segment } from "semantic-ui-react"
 import { DisplayType } from "../home/home"
 import { useState } from "react"
 import { useQuery } from "@tanstack/react-query";
-import { fetchMovieDetails } from "../individuals/movie_query";
 import { fetchRatedMovies, fetchRatedTv } from "./rated_query";
 import { ColumnDisplay } from "../home/column_display";
 import { Navigate } from "react-router-dom";

@@ -10,7 +10,7 @@ export const Auth = () => {
     const navigate = useNavigate();
 
     const handleLogin = async () => {
-        await mutate();
+        mutate();
         localStorage.setItem("guest_session_id", data.guest_session_id);
         navigate("/");
 

@@ -3,6 +3,7 @@ import { Button } from "semantic-ui-react"
 import { ColumnDisplay } from "./column_display";
 import { fetchOnAirTvShows, fetchNowPlayingMovies } from "./query";
 import { useQuery } from "@tanstack/react-query";
+import { Navigate } from "react-router-dom";
 
 export enum DisplayType {
     Movies = "movies",
@@ -14,6 +15,10 @@ export const Home = () => {
     const [displayType, setDisplayType] = useState<DisplayType>(DisplayType.Movies);
     const {data: NowPlayingMoviesData, isLoading: isLoadingNowPlayingMovies } = useQuery({queryKey: ["NowPlayingMovies"], queryFn: fetchNowPlayingMovies});
     const {data: OnAirTvShowsData, isLoading: isLoadingOnAirTvShows} = useQuery({queryKey: ["OnAirTvShows"], queryFn: fetchOnAirTvShows});
+
+    if (localStorage.getItem("guest_session_id") === null){
+        return <Navigate to="/auth" />
+    }
 
 
     return (
